@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Calculadora binaria</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<!-- Columna '0'-->
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+				<a href='javascript:addZero()'><h2>0</h2></a>
+			</div>
+			<!-- Columna '1'-->
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+				<a href='javascript:addOne()'><h2>1</h2></a>
+			</div>
+			<!-- Columna '+'-->
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+				<a href='javascript:sum()'><h2>+</h2></a>
+			</div>
+			<!-- Columna '='-->
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+				<a href='javascript:equalTo()'><h2>=</h2></a>
+			</div>
+			<!-- Display -->
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+				<h2 id="display"></h2>
+			</div>
+		</div>
+		<div>
+			<h2 id="warning"></h2>
+		</div>
+	</div>
+
+</body>
+<script type="text/javascript" charset="utf-8">
+	var sumando1;
+	var sumando2;
+	var s1Ok = 0;
+	var resultado;
+
+
+	function addZero(){
+		var display = document.getElementById('display');
+		display.innerHTML = display.innerHTML + '0';
+	}
+
+	function addOne(){
+		var display = document.getElementById('display');
+		display.innerHTML = display.innerHTML + '1';
+	}
+
+	function sum(){
+		var display = document.getElementById('display');
+		sumando1 = display.innerHTML;
+		sumando1 = parseInt(sumando1,2);
+		s1Ok = 1;
+		display.innerHTML = "";
+		console.log("Primer sumando: " + sumando1);
+	}
+
+	function equalTo(){
+		if (s1Ok){
+			sumando2 = display.innerHTML;
+			sumando2 = parseInt(sumando2,2);
+			resultado = sumando1 + sumando2;
+			s1Ok = 0;
+			console.log("Segundo sumando: " + sumando2);
+			console.log("Suma: " + resultado);
+			var resultadoStr = resultado.toString();
+			display.innerHTML = resultadoStr;
+		}
+		else{
+			var warning = document.getElementById('warning');
+			warning.innerHTML = "Debe añadir dos sumandos para poder efectuar la suma";
+			return;
+		}
+	}
+
+</script>
+</html>

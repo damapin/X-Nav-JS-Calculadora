@@ -62,19 +62,45 @@
 		sumando1 = parseInt(sumando1,2);
 		s1Ok = 1;
 		display.innerHTML = "";
+		var warning = document.getElementById("warning");
+		warning.innerHTML = "";
 		console.log("Primer sumando: " + sumando1);
+	}
+
+	function parseBin(suma, resultadoStr){
+		if (suma<2){
+			resultadoStr = resultadoStr + suma;
+			return resultadoStr;
+		}
+		var sumaAux = Math.floor(suma/2);
+		resultadoStr = resultadoStr + (suma%2);
+		parseBin(sumaAux, resultadoStr);
+	}
+
+	function invertString(cadena){
+		var i = cadena.length;
+		var cadenaInvertida = "";
+ 
+		while (i>=0) {
+  			cadenaInvertida = cadenaInvertida + cadena.charAt(i);
+  			i--;
+  		}
+  		return cadenaInvertida;
 	}
 
 	function equalTo(){
 		if (s1Ok){
 			sumando2 = display.innerHTML;
 			sumando2 = parseInt(sumando2,2);
-			resultado = sumando1 + sumando2;
+			var suma = sumando1 + sumando2;
+			var resultadoInv = "";
+			parseBin(suma, resultadoInv);
+			resultado = invertString(resultadoInv);
 			s1Ok = 0;
 			console.log("Segundo sumando: " + sumando2);
 			console.log("Suma: " + resultado);
-			var resultadoStr = resultado.toString();
-			display.innerHTML = resultadoStr;
+			/*var resultadoStr = resultado.toString();*/
+			display.innerHTML = resultado;
 		}
 		else{
 			var warning = document.getElementById('warning');

@@ -1,7 +1,15 @@
-col-xs-2,
-col-sm-2,
-col-md-2,
-col-lg-2{
-	border: solid 2px; 
-	border-color: #337AB7;
+.btn, .btn-lg, .btn-block,.btn-primary{
+	margin-top: 10px;
+	padding: 5px 0 19px 0;
 } 
+
+#warning{
+	margin-top: 20px;
+	visibility: hidden;
+}
+
+#display{
+	color: #337AB7;
+	padding: 16px 0 0 0;
+}
+

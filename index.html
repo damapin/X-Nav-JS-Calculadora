@@ -13,28 +13,31 @@
 	<div class="container">
 		<div class="row">
 			<!-- Columna '0'-->
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-				<a href='javascript:addZero()'><h2>0</h2></a>
+			<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+				<a href='javascript:addZero()' class="btn btn-lg btn-block btn-primary"><h2>0</h2></a>
 			</div>
 			<!-- Columna '1'-->
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-				<a href='javascript:addOne()'><h2>1</h2></a>
+			<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+				<a href='javascript:addOne()' class="btn btn-lg btn-block btn-primary"><h2>1</h2></a>
 			</div>
 			<!-- Columna '+'-->
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-				<a href='javascript:sum()'><h2>+</h2></a>
+			<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+				<a href='javascript:sum()' class="btn btn-lg btn-block btn-primary"><h2>+</h2></a>
 			</div>
 			<!-- Columna '='-->
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-				<a href='javascript:equalTo()'><h2>=</h2></a>
+			<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+				<a href='javascript:equalTo()' class="btn btn-lg btn-block btn-primary"><h2>=</h2></a>
 			</div>
 			<!-- Display -->
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+			<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
 				<h2 id="display"></h2>
+			</div>
+			<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+				<a href="javascript:reset()" class="btn btn-lg btn-block btn-primary"><h2>Borrar</h2></a>
 			</div>
 		</div>
 		<div>
-			<h2 id="warning"></h2>
+			<div id="warning" class="alert alert-danger" role="alert"></div>
 		</div>
 	</div>
 
@@ -63,18 +66,23 @@
 		s1Ok = 1;
 		display.innerHTML = "";
 		var warning = document.getElementById("warning");
+		warning.style.visibility = "hidden"
 		warning.innerHTML = "";
 		console.log("Primer sumando: " + sumando1);
 	}
 
-	function parseBin(suma, resultadoStr){
-		if (suma<2){
-			resultadoStr = resultadoStr + suma;
-			return resultadoStr;
+	function parseBin(suma){
+
+		var resultadoStr = "";
+
+		while (suma >= 2){
+			resultadoStr = resultadoStr + (suma%2);
+			suma = Math.floor(suma/2);
 		}
-		var sumaAux = Math.floor(suma/2);
-		resultadoStr = resultadoStr + (suma%2);
-		parseBin(sumaAux, resultadoStr);
+
+		resultadoStr = resultadoStr + suma;
+		return resultadoStr;
+		
 	}
 
 	function invertString(cadena){
@@ -89,24 +97,34 @@
 	}
 
 	function equalTo(){
+			var display = document.getElementById("display");
+
 		if (s1Ok){
-			sumando2 = display.innerHTML;
-			sumando2 = parseInt(sumando2,2);
+			sumando2 = parseInt(display.innerHTML,2);
 			var suma = sumando1 + sumando2;
-			var resultadoInv = "";
-			parseBin(suma, resultadoInv);
+			var resultadoInv = parseBin(suma);
 			resultado = invertString(resultadoInv);
 			s1Ok = 0;
-			console.log("Segundo sumando: " + sumando2);
-			console.log("Suma: " + resultado);
-			/*var resultadoStr = resultado.toString();*/
 			display.innerHTML = resultado;
 		}
 		else{
 			var warning = document.getElementById('warning');
+			warning.style.visibility = "visible";
 			warning.innerHTML = "Debe añadir dos sumandos para poder efectuar la suma";
 			return;
 		}
+	}
+
+	function reset(){
+
+		sumando1 = 0;
+		sumando2 = 0;
+		s1Ok = 0;
+		resultado = "";
+		var display = document.getElementById("display");
+		display.innerHTML = "";
+		var warning = document.getElementById("warning");
+		warning.style.visibility = "hidden";
 	}
 
 </script>
